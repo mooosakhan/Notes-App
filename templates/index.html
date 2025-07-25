@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"> <!-- Added data-theme attribute -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes</title>
+        <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Loading notes...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+          
+            <h1>MY NOTES</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="headerSearch" placeholder="Search notes..." oninput="filterNotes()">
+            </div>
+            <div class="user-profile">
+                <span>Sayef mahmud</span>
+                <i class="fas fa-user-circle"></i>
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <button class="add-new-btn" onclick="showAddNoteModal()">
+                <i class="fas fa-plus"></i>
+                Add new
+            </button>
+            
+            <nav class="nav-menu">
+                <div class="nav-item active">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notes</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Calendar</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-archive"></i>
+                    <span>Archive</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- My Notes Section -->
+            <section class="notes-section">
+                <div class="notes-header">
+                    <h2>My Notes</h2>
+                    <div class="notes-tabs">
+                        <span class="tab active">Today's</span>
+                        <span class="tab">This Week</span>
+                        <span class="tab">This Month</span>
+                    </div>
+                </div>
+                <div class="notes-grid" id="notesContainer">
+                    <!-- Notes will be dynamically loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Note Modal -->
+    <div class="modal" id="addNoteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Note</h3>
+                <button class="close-btn" onclick="closeAddNoteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="handleNoteSubmit(event)">
+                <textarea id="noteContent" placeholder="Write your note content..." required></textarea>
+                <div class="modal-actions">
+                    <button type="button" onclick="closeAddNoteModal()">Cancel</button>
+                    <button type="submit" id="submitBtn">
+                        <span class="btn-text">Add Note</span>
+                        <span class="btn-spinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+     <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
